@@ -1,0 +1,225 @@
+<odoo>
+  <data>
+    <record  id="product_template_form_inherit" model="ir.ui.view">
+
+      <field name="name">product_template_inherit</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="arch" type="xml">
+          <!-- Botón de impresión de etiquetas -->
+          <xpath expr="//header" position="inside">
+               <!--
+              <button string="Imprimir ZPL" type="object" name="print_zpl" />
+              -->
+          </xpath>
+          <!-- Agrega campos a la página Inventario -->
+          <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+              <!-- MEDIDAS DE PRODUCTO -->
+              <group string="Medidas de Producto">
+                  <label for="product_length"/>
+                  <div class="o_row" name="product_length">
+                    <field name="product_length"/>
+                    <span>cm</span>
+                  </div>
+                  <label for="product_height"/>
+                  <div class="o_row" name="product_height">
+                    <field name="product_height"/>
+                    <span>cm</span>
+                  </div>
+                  <label for="product_width"/>
+                  <div class="o_row" name="product_width">
+                    <field name="product_width"/>
+                    <span>cm</span>
+                  </div>
+                  <label for="product_weight"/>
+                  <div class="o_row" name="product_weight">
+                    <field name="product_weight"/>
+                    <span>kg</span>
+                  </div>
+                  <label for="product_volume"/>
+                  <div class="o_row" name="product_volume">
+                    <field name="product_volume"/>
+                  </div>
+                  <field name="packages_number"/>
+              </group>
+          </xpath>
+          <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+              <!-- MEDIDAS DE EMPAQUE -->
+              <group string="Medidas de Empaque">
+                  <label for="packing_length"/>
+                  <div class="o_row" name="packing_length">
+                    <field name="packing_length"/>
+                    <span>cm</span>
+                  </div>
+                  <label for="packing_height"/>
+                  <div class="o_row" name="packing_height">
+                    <field name="packing_height"/>
+                    <span>cm</span>
+                  </div>
+                  <label for="packing_width"/>
+                  <div class="o_row" name="packing_width">
+                    <field name="packing_width"/>
+                    <span>cm</span>
+                  </div>
+                  <label for="packing_weight"/>
+                  <div class="o_row" name="packing_weight">
+                    <field name="packing_weight"/>
+                    <span>kg</span>
+                  </div>
+
+                  <label for="data_averages_updated_date"/>
+                  <div class="o_row" name="data_averages_updated_date">
+                    <field name="data_averages_updated_date"/>
+                  </div>
+                  <label for="data_averages_updated_by"/>
+                  <div class="o_row" name="data_averages_updated_by">
+                    <field name="data_averages_updated_by"/>
+                  </div>
+
+              </group>
+          </xpath>
+          <!-- Agrega campos a la pagina Información General -->
+          <xpath expr="//group[@name='group_standard_price']" position="after">
+              <group string="Comercial" name="comercial">
+                <field name="buyer"/>
+                <field name="owner"/>
+                <field name="internal_category"/>
+                <field name="brand"/>
+              </group>
+
+              <group string="Costos" invisible="context.get('product.product', True)">
+                  <field name="previous_cost" widget='monetary'/>
+                  <!--
+                   <field name="replacement_cost" widget='monetary'/>
+                  <field name="last_entry_cost" widget='monetary'/>
+                  <field name="ps_cost" widget='monetary'/>
+                  <field name="minimal_amount"/>
+                  -->
+              </group>
+          </xpath>
+          <notebook>
+          <!-- Agrega una nueva página al formulario llamada Logística -->
+            <page name="logistica" string="Logística">
+              <group>
+                  <group string="Logística">
+                      <field name="nacional_import"/>
+                      <!--
+                      <field name="marketplace_codes" placeholder="ej. MAR-905977"/>
+                      <field name="provider_codes" placeholder="ej. PRO-905922"/>
+                      <field name="grava_iva"/>
+                      <field name="create_date"/>
+                      <field name="sold_out_industry"/>
+                      <field name="approx_date_arrival" attrs="{'invisible':[('sold_out_industry','=', False)]}"/>
+                      -->
+                  </group>
+                  <!--
+                  <group string="Esquemas logísticos">
+                      <field name="amazon_sch" options="{'no_create_edit': True, 'no_create': True}"/>
+                      <field name="claro_sch" options="{'no_create_edit': True, 'no_create': True}"/>
+                      <field name="linio_sch" options="{'no_create_edit': True, 'no_create': True}"/>
+                      <field name="meli_sch" options="{'no_create_edit': True, 'no_create': True}"/>
+                  </group>
+                  -->
+              </group>
+              <!--
+              <group string="Categorías Marketplace">
+                  <group>
+                    <field name="amazon_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="claro_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="coppel_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="elenas_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="elektra_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="linio_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="liverpool_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                  </group>
+                  <group>
+                    <field name="meli_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="sears_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="shopee_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="vivia_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="walmart_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="web_category" options="{'no_create_edit': True, 'no_create': True}"/>
+                  </group>
+             </group>
+
+              <group string="Sustitutos y Espejo">
+                <field name="substitute" options="{'no_create': True}">
+                    <tree>
+                        <field name="product_id" invisible="1" />
+                        <field name="name_sus"/>
+                        <field name="name_mir"/>
+                    </tree>
+                </field>
+              </group>
+              -->
+            </page>
+          <!-- Agrega una nueva página al formulario llamada Planificación -->
+            <page name="planning" string="Planificación">
+              <group>
+                  <group string="Estatus y Etiquetas" name="status">
+                      <field name="status"/>
+                      <field name="substatus"/>
+                      <!--<field name="status_sequence"/>
+                      <field name="status_subsequence"/>
+                      <field name="txt_filename" invisible="1"/>
+                      <field name="txt_binary" filename="txt_filename" readonly="1"/>-->
+                  </group>
+                  <!--
+                  <group string="Planning">
+                      <field name="first_entry_date"/>
+                      <field name="last_entry_date"/>
+                      <field name="first_departure_date"/>
+                      <field name="last_departure_date"/>
+                      <label for="start_period"/>
+                      <div class="o_row" name="start_period">
+                        <span> Entre </span>
+                        <field name="start_period"/>
+                        <span> y </span>
+                        <field name="end_period"/>
+                      </div>
+                  </group>
+                  <group string="Ubicación">
+                      <field name="location_hallway"/>
+                      <field name="location_level"/>
+                      <field name="location_area"/>
+                      <field name="location_box"/>
+                  </group>
+                  -->
+                  <group string="Stock" invisible="context.get('product.product', True)">
+                      <field name="stock_real" />
+                      <field name="stock_urrea"/>
+                      <!--
+                      <field name="stock_exclusivas"/>
+                      <field name="stock_markets"/>
+                      <field name="stock_supplier"/>
+                      <field name="stock_mercadolibre"/>
+                      <field name="stock_linio"/>
+                      <field name="stock_amazon"/>
+                      -->
+                  </group>
+              </group>
+            </page>
+          <!-- Agrega una nueva página al formulario llamada Markets -->
+            <page string="Markets">
+                <group>
+                    <group string="Mercado Libre">
+                        <field name="mlm_ventas"/>
+                        <field name="full_api_ventas"/>
+                        <field name="stock_full_ventas"/>
+                        <field name="mlm_oficiales"/>
+                        <field name="full_api_oficiales"/>
+                        <field name="stock_full_oficiales"/>
+                    </group>
+                    <group string="Esquema deseado">
+                        <field name="full_ventas"/>
+                        <field name="full_oficiales"/>
+                    </group>
+                </group>
+            </page>
+          </notebook>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>
