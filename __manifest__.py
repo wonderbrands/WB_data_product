@@ -33,14 +33,14 @@
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Inventory',
-    'version': '15.0',
+    'version': '18.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base',
                 'product',
                 'sale',
                 'stock',
-                'wb_partner',
+                'WB_data_res_partner ',
                 'wb_sale',
                 'wb_stock'],
 
@@ -50,7 +50,6 @@
         'security/security_product.xml',
         'views/product_supplierinfo_views.xml',
         'views/product_template_views.xml',
-        'views/templates.xml',
         'views/product_views.xml',
         'views/mrp_bom_line_views.xml',
         'views/product_template_view.xml',
@@ -74,9 +73,5 @@
         #'data/esquema.logistico.csv',
         'data/internal.category.csv',
         'data/product.brand.csv',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
     ],
 }

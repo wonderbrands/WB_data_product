@@ -51,12 +51,12 @@
                         </div>
                     </group>
                     <field name="sub_product_line_ids">
-                        <tree edit="0" create="0" delete="0">
+                        <list edit="0" create="0" delete="0">
                             <field name="product_id"/>
                             <field name="product_qty"/>
                             <field name="stock_qty"/>
                             <field name="combo_qty" invisible="1"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
               </page>
