@@ -42,7 +42,9 @@
                 'stock',
                 'WB_data_res_partner',
                 'WB_data_sale_order',
-                'WB_data_stock'],
+                'WB_data_stock',
+                'mrp'
+                ],
 
     # always loaded
     'data': [
