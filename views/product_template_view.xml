@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
-        <!-- Vista específica para el grupo "Estatus y Subestatus editables" -->
         <record id="view_product_template_status_readonly_inherit" model="ir.ui.view">
             <field name="name">product.template.form.status.substatus.readonly</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
-            <field name="groups_id" eval="[(6, 0, [ref('wb_product.group_status_product_readonly')])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='status']" position="attributes">
-                    <attribute name="readonly">1</attribute>
+                    <attribute name="readonly">True</attribute>
+                    <attribute name="groups">WB_data_product.group_status_product_readonly</attribute> <!-- ✅ Fix Applied -->
                 </xpath>
                 <xpath expr="//field[@name='substatus']" position="attributes">
-                    <attribute name="readonly">1</attribute>
+                    <attribute name="readonly">True</attribute>
+                    <attribute name="groups">WB_data_product.group_status_product_readonly</attribute> <!-- ✅ Fix Applied -->
                 </xpath>
             </field>
         </record>
+
     </data>
 </odoo>

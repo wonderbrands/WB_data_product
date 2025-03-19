@@ -59,29 +59,33 @@
         <field name="name">product.estatus.form.readonly</field>
         <field name="model">product.estatus</field>
         <field name="inherit_id" ref="view_product_estatus_form"/>
-        <field name="groups_id" eval="[(6, 0, [ref('wb_product.group_status_product_readonly')])]"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="readonly">True</attribute>
+                <attribute name="groups">WB_data_product.group_status_product_readonly</attribute> <!-- ✅ Fix Applied -->
             </xpath>
             <xpath expr="//field[@name='sequence']" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="readonly">True</attribute>
+                <attribute name="groups">WB_data_product.group_status_product_readonly</attribute> <!-- ✅ Fix Applied -->
             </xpath>
         </field>
     </record>
+
 
     <record id="view_product_subestatus_form_readonly" model="ir.ui.view">
         <field name="name">product.subestatus.form.readonly</field>
         <field name="model">product.subestatus</field>
         <field name="inherit_id" ref="view_product_subestatus_form"/>
-        <field name="groups_id" eval="[(6, 0, [ref('wb_product.group_status_product_readonly')])]"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="readonly">1</attribute>
+                <attribute name="groups">WB_data_product.group_status_product_readonly</attribute> <!-- ✅ Fix Applied -->
             </xpath>
             <xpath expr="//field[@name='subsequence']" position="attributes">
                 <attribute name="readonly">1</attribute>
+                <attribute name="groups">WB_data_product.group_status_product_readonly</attribute> <!-- ✅ Fix Applied -->
             </xpath>
         </field>
     </record>
+
 </odoo>

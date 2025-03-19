@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
 from odoo import models, fields, api, _
-from odoo.exceptions import Warning
 from datetime import datetime
 import logging
 import json

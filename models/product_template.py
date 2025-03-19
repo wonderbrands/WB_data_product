@@ -2,7 +2,6 @@
 import base64
 from odoo import api, fields, models, SUPERUSER_ID
 from odoo import models, fields, api, _
-from odoo.exceptions import Warning
 from datetime import datetime
 from io import StringIO, BytesIO
 import logging
@@ -12,6 +11,13 @@ import requests
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
+
+    product_variant_id = fields.Many2one(
+        'product.product', 
+        compute="_compute_product_variant_id", 
+        store=True, 
+        search=True
+    )
 
     #Number of Packages
     packages_number = fields.Integer(string='Numero de Paquetes')
@@ -85,14 +91,15 @@ class ProductTemplate(models.Model):
     #Substitute, Mirror and Variants
     substitute = fields.One2many('prod.relacionado', inverse_name='product_id', string='Productos', help='Muestra un producto que podría sustituir o reemplazar al seleccionado')
     #Stock
-    stock_real = fields.Integer(related='product_variant_id.stock_real', string="Stock Real", help='muestral el stock real')#, compute='_total')
+    stock_real = fields.Integer(related='product_variant_id.stock_real', string="Stock Real", help='Muestra el stock real')
     stock_exclusivas = fields.Integer(related='product_variant_id.stock_exclusivas', string="Stock Exclusivas", help='Muestra el stock de exclusivas')
     stock_urrea = fields.Integer(related='product_variant_id.stock_urrea', string="Stock Urrea", help='Muestra el stock de Urrea')
-    stock_markets = fields.Integer(related='product_variant_id.stock_markets', string="Stock Markets", help='Muestra el stock en markets')#, compute='_min_stock_markets')
+    stock_markets = fields.Integer(related='product_variant_id.stock_markets', string="Stock Markets", help='Muestra el stock en markets')
     stock_supplier = fields.Integer(related='product_variant_id.stock_supplier', string="Stock Proveedor", help='Muestra el stock del proveedor')
-    stock_mercadolibre = fields.Integer(related='product_variant_id.stock_mercadolibre', string="Stock mercado Libre", readonly=False)#, compute='_total')
-    stock_linio = fields.Integer(related='product_variant_id.stock_linio', string="Stock Linio", readonly=False)#, compute='_total')
-    stock_amazon = fields.Integer(related='product_variant_id.stock_amazon', string="Stock Amazon", readonly=False)#, compute='_total')
+    stock_mercadolibre = fields.Integer(related='product_variant_id.stock_mercadolibre', string="Stock Mercado Libre", readonly=False)
+    stock_linio = fields.Integer(related='product_variant_id.stock_linio', string="Stock Linio", readonly=False)
+    stock_amazon = fields.Integer(related='product_variant_id.stock_amazon', string="Stock Amazon", readonly=False)
+
     #Location
     location_hallway = fields.Char(string="Pasillo")
     location_level = fields.Char(string="Nivel")
