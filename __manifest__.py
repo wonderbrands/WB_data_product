@@ -44,7 +44,8 @@
                 'WB_data_sale_order',
                 'WB_data_stock',
                 'mrp',
-                'madkting'
+                'madkting',
+                'yuju_combos'
                 ],
 
     # always loaded
