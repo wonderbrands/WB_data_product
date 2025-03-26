@@ -43,7 +43,8 @@
                 'WB_data_res_partner',
                 'WB_data_sale_order',
                 'WB_data_stock',
-                'mrp'
+                'mrp',
+                'madkting'
                 ],
 
     # always loaded
