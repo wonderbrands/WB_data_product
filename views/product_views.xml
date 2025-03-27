@@ -14,7 +14,7 @@
           </xpath>
           <xpath expr="//group[@name='group_lots_and_weight']" position="after">
               <group string="Medidas calculadas de producto" invisible="[('is_kit', '=', False)]">
-                  <field name="is_calculated_combo" invisible="1"/>
+  
                   <label for="calculated_weight"/>
                         <div class="o_row" name="calculated_weight">
                             <field name="calculated_weight"/><span>kg</span>
@@ -43,8 +43,7 @@
           <page name="combo" string="Componentes" invisible="[('is_kit', '=', False)]">
                 <group string ='Lista de materiales'>
                     <group>
-                        <field name="is_kit" invisible="1" />
-                        <field name="component_list" invisible="1"/>
+                    
                         <label for="combo_qty"/>
                         <div class="o_row" name="combo_qty">
                             <field name="combo_qty"/><span>combos pueden crearse</span>
@@ -55,7 +54,7 @@
                             <field name="product_id"/>
                             <field name="product_qty"/>
                             <field name="stock_qty"/>
-                            <field name="combo_qty" invisible="1"/>
+                   
                         </list>
                     </field>
                 </group>

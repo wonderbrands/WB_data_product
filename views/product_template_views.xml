@@ -145,7 +145,6 @@
               <group string="Sustitutos y Espejo">
                 <field name="substitute" options="{'no_create': True}">
                     <tree>
-                        <field name="product_id" invisible="1" />
                         <field name="name_sus"/>
                         <field name="name_mir"/>
                     </tree>
@@ -161,7 +160,6 @@
                       <field name="substatus"/>
                       <!--<field name="status_sequence"/>
                       <field name="status_subsequence"/>
-                      <field name="txt_filename" invisible="1"/>
                       <field name="txt_binary" filename="txt_filename" readonly="1"/>-->
                   </group>
                   <!--
