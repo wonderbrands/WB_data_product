@@ -54,7 +54,7 @@
         'security/security_product.xml',
         'views/product_supplierinfo_views.xml',
         'views/product_template_views.xml',
-        'views/product_views.xml',
+        #'views/product_views.xml',
         'views/mrp_bom_line_views.xml',
         'views/product_template_view.xml',
         'views/skus_control.xml',
