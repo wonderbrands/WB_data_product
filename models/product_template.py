@@ -69,36 +69,12 @@ class ProductTemplate(models.Model):
     last_entry_cost = fields.Float(string='Costo última entrada', help='Muestra el costo de la última entrada del producto al inventario', compute='_last_cost')
     ps_cost = fields.Float(string='Costo PP', help="Campo con costo pronto pago. Aplica para descuentos financieros por pago")
     minimal_amount = fields.Float(string='Cantidad mínima', help='Cantidad de compra mínima por producto')
-    #Logistic Scheme
-    amazon_sch = fields.Many2one('esquema.logistico', string='Esquema Amazon', help="Mapea por sku el esquema logístico (FBA/FBM/Drop/Bajo pedido/Inactivo)")
-    claro_sch = fields.Many2one('esquema.logistico', string='Esquema Claro Shop', help="Mapea por sku el esquema logístico (FBA/FBM/Drop/Bajo pedido/Inactivo)")
-    linio_sch = fields.Many2one('esquema.logistico', string='Esquema Linio', help="Mapea por sku el esquema logístico (FBA/FBM/Drop/Bajo pedido/Inactivo)")
-    meli_sch = fields.Many2one('esquema.logistico', string='Esquema Mercado Libre', help="Mapea por sku el esquema logístico (FBA/FBM/Drop/Bajo pedido/Inactivo)")
-    #Categories by Marketplace
-    amazon_category = fields.Many2one('cat.amazon', string='Categoría Amazon')
-    claro_category = fields.Many2one('cat.claro', string='Categoría Claro Shop')
-    coppel_category = fields.Many2one('cat.coppel', string='Categoría Coppel')
-    elenas_category = fields.Many2one('cat.elenas', string='Categoría Elenas')
-    elektra_category = fields.Many2one('cat.elektra', string='Categoría Elektra')
-    linio_category = fields.Many2one('cat.linio', string='Categoría Linio')
-    liverpool_category = fields.Many2one('cat.liverpool', string='Categoría Liverpool')
-    meli_category = fields.Many2one('cat.meli', string='Categoría Mercado Libre')
-    sears_category = fields.Many2one('cat.sears', string='Categoría Sears')
-    shopee_category = fields.Many2one('cat.shopee', string='Categoría Shopee')
-    vivia_category = fields.Many2one('cat.vivia', string='Categoría Vivia')
-    walmart_category = fields.Many2one('cat.walmart', string='Categoría Walmart')
-    web_category = fields.Many2one('cat.web', string='Categoría Web')
+    
     #Substitute, Mirror and Variants
     substitute = fields.One2many('prod.relacionado', inverse_name='product_id', string='Productos', help='Muestra un producto que podría sustituir o reemplazar al seleccionado')
     #Stock
     stock_real = fields.Integer(related='product_variant_id.stock_real', string="Stock Real", help='Muestra el stock real')
-    stock_exclusivas = fields.Integer(related='product_variant_id.stock_exclusivas', string="Stock Exclusivas", help='Muestra el stock de exclusivas')
     stock_urrea = fields.Integer(related='product_variant_id.stock_urrea', string="Stock Urrea", help='Muestra el stock de Urrea')
-    stock_markets = fields.Integer(related='product_variant_id.stock_markets', string="Stock Markets", help='Muestra el stock en markets')
-    stock_supplier = fields.Integer(related='product_variant_id.stock_supplier', string="Stock Proveedor", help='Muestra el stock del proveedor')
-    stock_mercadolibre = fields.Integer(related='product_variant_id.stock_mercadolibre', string="Stock Mercado Libre", readonly=False)
-    stock_linio = fields.Integer(related='product_variant_id.stock_linio', string="Stock Linio", readonly=False)
-    stock_amazon = fields.Integer(related='product_variant_id.stock_amazon', string="Stock Amazon", readonly=False)
 
     #Location
     location_hallway = fields.Char(string="Pasillo")

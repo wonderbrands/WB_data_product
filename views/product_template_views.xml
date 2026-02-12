@@ -112,36 +112,8 @@
                       <field name="approx_date_arrival" attrs="{'invisible':[('sold_out_industry','=', False)]}"/>
                       -->
                   </group>
-                  <!--
-                  <group string="Esquemas logísticos">
-                      <field name="amazon_sch" options="{'no_create_edit': True, 'no_create': True}"/>
-                      <field name="claro_sch" options="{'no_create_edit': True, 'no_create': True}"/>
-                      <field name="linio_sch" options="{'no_create_edit': True, 'no_create': True}"/>
-                      <field name="meli_sch" options="{'no_create_edit': True, 'no_create': True}"/>
-                  </group>
-                  -->
               </group>
               <!--
-              <group string="Categorías Marketplace">
-                  <group>
-                    <field name="amazon_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="claro_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="coppel_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="elenas_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="elektra_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="linio_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="liverpool_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                  </group>
-                  <group>
-                    <field name="meli_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="sears_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="shopee_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="vivia_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="walmart_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="web_category" options="{'no_create_edit': True, 'no_create': True}"/>
-                  </group>
-             </group>
-
               <group string="Sustitutos y Espejo">
                 <field name="substitute" options="{'no_create': True}">
                     <tree>
@@ -186,14 +158,6 @@
                   <group string="Stock" invisible="context.get('product.product', True)">
                       <field name="stock_real" />
                       <field name="stock_urrea"/>
-                      <!--
-                      <field name="stock_exclusivas"/>
-                      <field name="stock_markets"/>
-                      <field name="stock_supplier"/>
-                      <field name="stock_mercadolibre"/>
-                      <field name="stock_linio"/>
-                      <field name="stock_amazon"/>
-                      -->
                   </group>
               </group>
             </page>
