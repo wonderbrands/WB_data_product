@@ -86,7 +86,7 @@ class ProductTemplate(models.Model):
     txt_binary = fields.Binary("Etiqueta ZPL")
     #Markets
     mlm_ventas = fields.Char(string='Somos Reyes Ventas', help='Código MLM del SKU perteneciente a ventas')
-    mlm_oficiales = fields.Char(string='Somos Reyes Oficiales', helpp='Código MLM del SKU perteneciente a oficiales')
+    mlm_oficiales = fields.Char(string='Somos Reyes Oficiales', help='Código MLM del SKU perteneciente a oficiales')
     stock_full_ventas = fields.Integer(string='Stock Full Ventas', help='Stock de ventas')
     stock_full_oficiales = fields.Integer(string='Stock Full Oficiales', help='Stock de oficiales')
     full_api_ventas = fields.Boolean(string='Fullfilment Ventas API', help='Esquema del SKU de ventas mapeado por API')
