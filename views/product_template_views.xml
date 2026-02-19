@@ -81,8 +81,8 @@
           <!-- Agrega campos a la pagina Información General -->
           <xpath expr="//group[@name='group_standard_price']" position="after">
               <group string="Comercial" name="comercial">
-                <field name="buyer"/>
-                <field name="owner"/>
+                <field name="buyer" options="{'no_create': True}"/>
+                <field name="owner" options="{'no_create': True}"/>
                 <field name="internal_category"/>
                 <field name="brand"/>
               </group>

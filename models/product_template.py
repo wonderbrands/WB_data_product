@@ -34,8 +34,8 @@ class ProductTemplate(models.Model):
     packing_weight = fields.Float(string='Peso empaque', help="Peso del Empaque en centimentros")
     #Comercial
     #buyer = fields.One2many('usr.comprador', inverse_name='partner_id', string='Comprador responsable', help="Comprador responsable del SKU")
-    buyer = fields.Many2one('res.partner', string='Comprador responsable', help='Establece el comprador encargado de este SKU')
-    owner = fields.Many2one('res.partner', string='Owner comercial', help='Establece el comercial responsable de este SKU')
+    buyer = fields.Many2one('product.responsible', string='Comprador responsable', help='Establece el comprador encargado de este SKU', domain="[('type', 'in', ['buyer', 'both'])]")
+    owner = fields.Many2one('product.responsible', string='Owner comercial', help='Establece el comercial responsable de este SKU', domain="[('type', 'in', ['owner', 'both'])]")
     internal_category = fields.Many2one('internal.category', string='Categoría interna', help='Categoría interna para el equipo de SR')
     brand = fields.Many2one('product.brand', string='Marca', help='Marca a la que pertecene el SKU')
     #Logistics

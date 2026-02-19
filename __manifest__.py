@@ -50,15 +50,25 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        # grupos de seguridad
         'security/security_product.xml',
+        
+        # asignacion de permisos del CSV
+        'security/ir.model.access.csv',
+        
+        # catálogos de datos
+        'data/internal.category.csv',
+        'data/product.brand.csv',
+        
+        # nuevo para odoo 18
+        'views/responsible_views.xml', 
         'views/product_supplierinfo_views.xml',
+        
+        # herencias/modificaciones de modelos que ya existen
         'views/product_template_views.xml',
         'views/mrp_bom_line_views.xml',
         'views/product_template_view.xml',
         'views/skus_control.xml',
         'views/estatus_subestatus_view.xml',
-        'data/internal.category.csv',
-        'data/product.brand.csv',
     ],
 }

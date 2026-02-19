@@ -6,3 +6,4 @@ access_product_estatus,access_product_estatus,model_product_estatus,base.group_u
 access_product_subestatus,access_product_subestatus,model_product_subestatus,base.group_user,1,1,1,1
 access_internal_category,access_internal_category,model_internal_category,base.group_user,1,1,1,1
 access_product_brand,access_product_brand,model_product_brand,base.group_user,1,1,1,1
+access_product_responsible,access_product_responsible,model_product_responsible,base.group_user,1,1,1,1
