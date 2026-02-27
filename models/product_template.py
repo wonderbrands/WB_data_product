@@ -20,7 +20,7 @@ class ProductTemplate(models.Model):
     )
 
     #Number of Packages
-    packages_number = fields.Integer(string='Numero de Paquetes')
+    packages_number = fields.Integer(string='Paquetes que componen el SKU', help="Indica en cuántas cajas/paquetes se envía este SKU debido a su tamaño (valor entero).")
     #Product Measurements
     product_length = fields.Float(string='Largo producto', help="Largo del Producto en centimentros")
     product_height = fields.Float(string='Alto producto', help="Alto del Producto en centimentros")
@@ -39,42 +39,23 @@ class ProductTemplate(models.Model):
     internal_category = fields.Many2one('internal.category', string='Categoría interna', help='Categoría interna para el equipo de SR')
     brand = fields.Many2one('product.brand', string='Marca', help='Marca a la que pertecene el SKU')
     #Logistics
-    marketplace_codes = fields.Char(string='Códigos por marketplace', help='Códigos para comunicación con marketplace')
-    provider_codes = fields.Char(string='Códigos por proveedor', help='Códigos del proveedor por SKU')
     nacional_import = fields.Selection([('importado', 'Importado'),
                                         ('nacional', 'Nacional')],
                                        string='Importacion/Nacional', help="Indica si el producto es importado o nacional")
-    sold_out_industry = fields.Boolean(string='Agotado de industria', help='Producto que el proveedor reporta como agotado')
-    approx_date_arrival = fields.Date(string='Fecha aprox de llegada', help='Posible fecha de resurtido por parte del proveedor para agotados de industria')
-    #Product Status
     status = fields.Many2one('product.estatus', string='Estatus', help='Estatus del producto')
     substatus = fields.Many2one('product.subestatus', string='Subestatus', help='Subestatus del producto')#, domain=[('status_subsequence', "=", 'status_sequence')])
     status_sequence = fields.Char(related='status.sequence', string='Secuencia')
     status_subsequence = fields.Char(related='substatus.subsequence', string='Subsecuencia')
-    #Seasonal and Period
-    start_period = fields.Char(string='Inicio del periodo', help='Fecha/Mes en que inicia una estación o un Periodo para un SKU')
-    end_period = fields.Char(string='Fin del periodo', help='Fecha/Mes en que finaliza una estación o un Periodo para un SKU')
+
     #Planning
     clasificacion_abc = fields.Char(string='Clasificación abc', help='Clasificación desarrollada por Planning')
-    first_entry_date = fields.Date(string='Fecha primera entrada')
-    last_entry_date = fields.Date(string='Fecha última entrada')
-    first_departure_date = fields.Date(string='Fecha primera salida')
-    last_departure_date = fields.Date(string='Fecha última salida')
-    grava_iva = fields.Selection([('si', 'Si'),
-                                  ('no', 'No')],
-                                 string='Grava IVA', help='Identifica si el producto grava IVA')
+
+    
     #Costs
     previous_cost = fields.Float(related='product_variant_id.previous_cost', string='Costo anterior', help='Muestra el costo anterior del producto')
-    replacement_cost = fields.Float(string='Costo reposición', help='Muestra el costo de reposición del producto', compute='_replacement_cost')
-    last_entry_cost = fields.Float(string='Costo última entrada', help='Muestra el costo de la última entrada del producto al inventario', compute='_last_cost')
-    ps_cost = fields.Float(string='Costo PP', help="Campo con costo pronto pago. Aplica para descuentos financieros por pago")
-    minimal_amount = fields.Float(string='Cantidad mínima', help='Cantidad de compra mínima por producto')
     
     #Substitute, Mirror and Variants
     substitute = fields.One2many('prod.relacionado', inverse_name='product_id', string='Productos', help='Muestra un producto que podría sustituir o reemplazar al seleccionado')
-    #Stock
-    stock_real = fields.Integer(related='product_variant_id.stock_real', string="Stock Real", help='Muestra el stock real')
-    stock_urrea = fields.Integer(related='product_variant_id.stock_urrea', string="Stock Urrea", help='Muestra el stock de Urrea')
 
     #Location
     location_hallway = fields.Char(string="Pasillo")
@@ -84,21 +65,16 @@ class ProductTemplate(models.Model):
     #Label
     txt_filename = fields.Char()
     txt_binary = fields.Binary("Etiqueta ZPL")
-    #Markets
-    mlm_ventas = fields.Char(string='Somos Reyes Ventas', help='Código MLM del SKU perteneciente a ventas')
-    mlm_oficiales = fields.Char(string='Somos Reyes Oficiales', help='Código MLM del SKU perteneciente a oficiales')
-    stock_full_ventas = fields.Integer(string='Stock Full Ventas', help='Stock de ventas')
-    stock_full_oficiales = fields.Integer(string='Stock Full Oficiales', help='Stock de oficiales')
-    full_api_ventas = fields.Boolean(string='Fullfilment Ventas API', help='Esquema del SKU de ventas mapeado por API')
-    full_api_oficiales = fields.Boolean(string='Fullfilment Oficiales API', help='Esquema del SKU de oficiales mapeado por API')
-    #Markets Manual
-    full_ventas = fields.Boolean(string='Fullfilment Ventas', help='Esquema del SKU de ventas mapeado de forma manual')
-    full_oficiales = fields.Boolean(string='Fullfilment Oficiales', help='Esquema del SKU de oficiales mapeado de forma manual')
-
+    
     # Campos Cecilia  22-oct-2024
     data_averages_updated_date = fields.Datetime(string='Medidas actualizadas el', help='Establece la fecha en que se actualizaron las medidas')
     data_averages_updated_by = fields.Many2one('res.users', string='Medidas actualizadas por', help='Establece el usuario que actualizó las medidas')
 
+
+    #Campo de wb_product_import V15.0
+    #IMPORTACION
+    tariff_percentage = fields.Float(string='Porcentaje de arancel', help="Porcentaje Impuesto del Arancel")
+    
     # Function that prints the previous cost
     @api.depends('seller_ids')
     def _previous_cost(self):
