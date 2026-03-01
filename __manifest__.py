@@ -42,7 +42,7 @@
                 'stock',
                 'WB_data_res_partner',
                 'WB_data_sale_order',
-                'WB_data_stock',
+                #'WB_data_stock', # No se usara por ahora en v18. Pendiente analizar si se requiere
                 'mrp',
                 'madkting',
                 'yuju_combos'
