@@ -81,10 +81,16 @@
           <!-- Agrega campos a la pagina Información General -->
           <xpath expr="//group[@name='group_standard_price']" position="after">
               <group string="Comercial" name="comercial">
-                <field name="buyer" options="{'no_create': True}"/>
-                <field name="owner" options="{'no_create': True}"/>
-                <field name="internal_category"/>
-                <field name="brand"/>
+                  <field name="buyer" 
+                        options="{'no_create': True}" 
+                        domain="[('type', 'in', ['buyer', 'both'])]"/>
+                        
+                  <field name="owner" 
+                        options="{'no_create': True}" 
+                        domain="[('type', 'in', ['owner', 'both'])]"/>
+                        
+                  <field name="internal_category"/>
+                  <field name="brand"/>
               </group>
 
               <group string="Costos" invisible="context.get('product.product', True)">
