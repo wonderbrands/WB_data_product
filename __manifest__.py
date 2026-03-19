@@ -44,7 +44,6 @@
                 'WB_data_sale_order',
                 #'WB_data_stock', # No se usara por ahora en v18. Pendiente analizar si se requiere
                 'mrp',
-                'yuju_combos'
                 ],
 
     # always loaded
