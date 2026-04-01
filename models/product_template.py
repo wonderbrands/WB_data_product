@@ -241,27 +241,33 @@ class ProductTemplate(models.Model):
         _logger = logging.getLogger(__name__)
         for each in self:
             try:
+                stock_real = 0
+                reserved_quantity = 0
+                previsto = 0
                 quantity_total = 0
                 reserved_quantity_total = 0
 
-                # Use the main variant of the template
-                product = each.product_variant_id
-                if not product:
-                    each.stock_real = 0
-                    continue
-
+                default_code = each.default_code
+                product = each.env['product.product'].search([('default_code', '=', default_code)], limit=1)
                 quants = product.stock_quant_ids
                 for quant in quants:
-                    location = quant.location_id
+                    quant_id = quant.id
+                    location_id = quant.location_id.id
+                    location = each.env['stock.location'].search([('id', '=', location_id)], limit=1)
                     location_display_name = location.display_name
+                    location_name = quant.location_id.name
                     quantity = quant.quantity
                     reserved_quantity = quant.reserved_quantity
                     previsto = quantity - reserved_quantity
 
+                    _logger.info('SR STOCK| default_code:' + str(default_code) + '|location_id:' + str(location_id) + '|location_name:' + str(location_name) + '|' + str(location_display_name) + '|quantity:' + str(quantity) + '|reserved_quantity:' + str(reserved_quantity) + '|previsto:' + str(previsto))
                     # --- Todo lo que esta en las ubicaciones AG
-                    if location_display_name and 'AG/Stock' in location_display_name:
-                        quantity_total += quantity
-                        reserved_quantity_total += reserved_quantity
+                    if 'AG/Stock' in str(location_display_name):
+                        # stock_real += quantity
+                        quantity_total = quantity_total + quantity
+                        reserved_quantity_total = reserved_quantity_total + reserved_quantity
+                        _logger.info('quantity_total:' + str(quantity_total) + ',reserved_quantity_total: ' + str(
+                            reserved_quantity_total))
 
                 each.stock_real = quantity_total - reserved_quantity_total
 
@@ -296,51 +302,60 @@ class ProductTemplate(models.Model):
     #Function that print the actual stock
     @api.depends('stock_real')
     def _min_stock_markets(self):
-        _logger = logging.getLogger(__name__)
-        for each in self:
-            try:
-                # --- Adecuacion para cuando el producto es un combo "is_kit=True"
-                lista_stock_markets = []
-                lista_stock_real = []
+        self.ensure_one()
+        try:
+            # --- Adecuacion para cuando el producto es un combo "is_kit=True"
+            _logger = logging.getLogger(__name__)
+            lista_stock_markets = []
+            lista_stock_real = []
+            stock_markets = 0
+            stock_subproducto = 0
 
-                product = each.product_variant_id
-                if not product or not product.bom_ids:
-                    continue
-                
-                # Check if it's a kit using the first BOM
-                bom = product.bom_ids[0]
-                if bom.type != 'phantom':
-                    continue
+            default_code = self.default_code
+            _logger.info('default_code: %s', default_code)
+            product_is_kit = self.env['product.product'].search([('default_code', '=', default_code)])#.is_kit
+            # _logger.info('product_is_kit: %s', str(product_is_kit) )
+            if product_is_kit:
+                sub_product_line_ids = self.env['product.product'].search([('default_code', '=', default_code)]).sub_product_line_ids
+                # _logger.info('sub_product_line_ids: %s', str(sub_product_line_ids) )
+                for sub_product_line_id in sub_product_line_ids:
+                    id_sub_product = sub_product_line_id.id
+                    _logger.info('id_sub_product: %s', str(id_sub_product))
+                    product_id = self.env['sub.product.lines'].search([('id', '=', id_sub_product)]).product_id.id
+                    product_quantity = self.env['sub.product.lines'].search([('id', '=', id_sub_product)]).quantity
+                    # _logger.info('product_id: %s,  PRODUCT CUANTITY: %s', str(product_id), str(product_quantity) )
 
-                sub_product_line_ids = bom.bom_line_ids
-                for line in sub_product_line_ids:
-                    product_id = line.product_id
-                    product_quantity = line.product_qty or 1.0
-
-                    stock_markets_subproductos = product_id.stock_markets
+                    stock_markets_subproductos = self.env['product.product'].search(
+                        [('id', '=', product_id)]).stock_markets
 
                     # -- para los combos cuando vienen varios productos
-                    stock_real_subproducto = int(int(product_id.stock_real) / product_quantity)
+                    stock_real_subproducto = int(int(
+                        self.env['product.product'].search([('id', '=', product_id)]).stock_real) / product_quantity)
 
-                    stock_exclusivas_subproducto = product_id.stock_exclusivas
-                    stock_urrea_subproducto = product_id.stock_urrea
+                    stock_exclusivas_subproducto = self.env['product.product'].search(
+                        [('id', '=', product_id)]).stock_exclusivas
+                    stock_urrea_subproducto = self.env['product.product'].search([('id', '=', product_id)]).stock_urrea
 
                     if stock_markets_subproductos <= 0:
                         stock_subproducto_markets = stock_real_subproducto + stock_exclusivas_subproducto + stock_urrea_subproducto
                     else:
                         stock_subproducto_markets = stock_markets_subproductos
 
+                    # _logger.info('stock_markets: %s', stock_subproducto_markets  )
+                    # _logger.info('stock_real_subproducto: %s', str(stock_real_subproducto) )
+
                     lista_stock_markets.append(stock_subproducto_markets)
                     lista_stock_real.append(stock_real_subproducto)
-                
-                if lista_stock_markets:
-                    stock_minimo_markets = min(lista_stock_markets)
-                    stock_minimo_real = min(lista_stock_real)
-                    each.stock_markets = stock_minimo_markets
-                    each.stock_real = stock_minimo_real
+                # Cual es ma lenor cantidad
+                # _logger.info('lista_stock_markets: %s', str(lista_stock_markets) )
+                stock_minimo_markets = min(lista_stock_markets)
+                stock_minimo_real = min(lista_stock_real)
+                self.stock_markets = stock_minimo_markets
+                self.stock_real = stock_minimo_real
+            # --- Termina Adecuacion
 
-            except Exception as e:
-                _logger.info('ERROR _min_stock_markets(): | %s', str(e))
+        except Exception as e:
+            _logger.info('ERROR _min_stock_markets(): | %s', str(e))
 
     #Function that print VAT price
     @api.depends('list_price')

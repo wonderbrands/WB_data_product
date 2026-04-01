@@ -23,18 +23,11 @@ class MrpBomLine(models.Model):
         _logger = logging.getLogger(__name__)
         min_stock = []
         for each in self:
-            product_qty = each.product_qty or 1.0
-            product = each.product_id
-            if not product:
-                each.stock_qty = 0
-                continue
+            product_qty = each.product_qty
+            product = each.env['product.product'].search([('id', '=', each.product_id.id)], limit=1)
             each.stock_qty = product.stock_real
             combo_calculation = each.stock_qty / product_qty
             round_qty = round(combo_calculation)
             min_stock.append(round_qty)
-        
-        # This part seems logically weird if it sets combo_qty on the whole recordset 
-        # based on the minimum of all lines, but keeping it to match original intent.
-        if min_stock:
-            min_amount = min(min_stock)
-            self.write({'combo_qty': min_amount})
+        min_amount = min(min_stock, default=0)
+        self.combo_qty = min_amount

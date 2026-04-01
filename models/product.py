@@ -80,25 +80,33 @@ class ProductProduct(models.Model):
         _logger = logging.getLogger(__name__)
         for each in self:
             try:
+                stock_real = 0
+                reserved_quantity = 0
+                previsto = 0
                 quantity_total = 0
                 reserved_quantity_total = 0
 
-                # No need to search for product, 'each' is already a product.product record
-                quants = each.stock_quant_ids
+                default_code = each.default_code
+                product = each.env['product.product'].search([('default_code', '=', default_code)], limit=1)
+                quants = product.stock_quant_ids
                 for quant in quants:
-                    location = quant.location_id
+                    quant_id = quant.id
+                    location_id = quant.location_id.id
+                    location = each.env['stock.location'].search([('id', '=', location_id)], limit=1)
                     location_display_name = location.display_name
+                    location_name = quant.location_id.name
                     quantity = quant.quantity
                     reserved_quantity = quant.reserved_quantity
                     previsto = quantity - reserved_quantity
 
-                    # _logger.info('SR STOCK| id:' + str(each.id) + '|location_id:' + str(location.id) + '|location_name:' + str(location.name) + '|' + str(location_display_name) + '|quantity:' + str(quantity) + '|reserved_quantity:' + str(reserved_quantity) + '|previsto:' + str(previsto))
-                    
+                    _logger.info('SR STOCK| default_code:' + str(default_code) + '|location_id:' + str(location_id) + '|location_name:' + str(location_name) + '|' + str(location_display_name) + '|quantity:' + str(quantity) + '|reserved_quantity:' + str(reserved_quantity) + '|previsto:' + str(previsto))
                     # --- Todo lo que esta en las ubicaciones AG
-                    if location_display_name and 'AG/Stock' in location_display_name:
-                        quantity_total += quantity
-                        reserved_quantity_total += reserved_quantity
-                        # _logger.info('quantity_total:' + str(quantity_total) + ',reserved_quantity_total: ' + str(reserved_quantity_total))
+                    if 'AG/Stock' in str(location_display_name):
+                        # stock_real += quantity
+                        quantity_total = quantity_total + quantity
+                        reserved_quantity_total = reserved_quantity_total + reserved_quantity
+                        _logger.info('quantity_total:' + str(quantity_total) + ',reserved_quantity_total: ' + str(
+                            reserved_quantity_total))
 
                 each.stock_real = quantity_total - reserved_quantity_total
 
