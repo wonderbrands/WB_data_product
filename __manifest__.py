@@ -55,8 +55,8 @@
         'security/ir.model.access.csv',
         
         # catálogos de datos
-        'data/internal.category.csv',
-        'data/product.brand.csv',
+        #'data/internal.category.csv',
+        #'data/product.brand.csv',
         
         # nuevo para odoo 18
         'views/responsible_views.xml', 
