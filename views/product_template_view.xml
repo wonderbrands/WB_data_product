@@ -21,12 +21,11 @@
             <field name="name">product.template.form.status.substatus.write</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="WB_data_product.view_product_template_status_readonly_inherit"/>
-            <field name="groups_id" eval="[(4, ref('WB_data_product.group_status_product_write'))]"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='status']" position="attributes">
+                <xpath expr="//field[@name='status']" position="attributes" groups="WB_data_product.group_status_product_write">
                     <attribute name="readonly">False</attribute>
                 </xpath>
-                <xpath expr="//field[@name='substatus']" position="attributes">
+                <xpath expr="//field[@name='substatus']" position="attributes" groups="WB_data_product.group_status_product_write">
                     <attribute name="readonly">False</attribute>
                 </xpath>
             </field>

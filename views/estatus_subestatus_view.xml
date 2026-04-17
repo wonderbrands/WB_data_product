@@ -92,12 +92,11 @@
         <field name="name">product.estatus.form.write</field>
         <field name="model">product.estatus</field>
         <field name="inherit_id" ref="view_product_estatus_form_readonly"/>
-        <field name="groups_id" eval="[(4, ref('WB_data_product.group_status_product_write'))]"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="attributes">
+            <xpath expr="//field[@name='name']" position="attributes" groups="WB_data_product.group_status_product_write">
                 <attribute name="readonly">0</attribute>
             </xpath>
-            <xpath expr="//field[@name='sequence']" position="attributes">
+            <xpath expr="//field[@name='sequence']" position="attributes" groups="WB_data_product.group_status_product_write">
                 <attribute name="readonly">0</attribute>
             </xpath>
         </field>
@@ -107,12 +106,11 @@
         <field name="name">product.subestatus.form.write</field>
         <field name="model">product.subestatus</field>
         <field name="inherit_id" ref="view_product_subestatus_form_readonly"/>
-        <field name="groups_id" eval="[(4, ref('WB_data_product.group_status_product_write'))]"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="attributes">
+            <xpath expr="//field[@name='name']" position="attributes" groups="WB_data_product.group_status_product_write">
                 <attribute name="readonly">0</attribute>
             </xpath>
-            <xpath expr="//field[@name='subsequence']" position="attributes">
+            <xpath expr="//field[@name='subsequence']" position="attributes" groups="WB_data_product.group_status_product_write">
                 <attribute name="readonly">0</attribute>
             </xpath>
         </field>
