@@ -2,8 +2,10 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_esquema_logistico,access_esquema_logistico,model_esquema_logistico,base.group_user,1,1,1,1
 access_usr_comprador,access_usr_comprador,model_usr_comprador,base.group_user,1,1,1,1
 access_prod_relacionado,access_prod_relacionado,model_prod_relacionado,base.group_user,1,1,1,1
-access_product_estatus,access_product_estatus,model_product_estatus,base.group_user,1,1,1,1
-access_product_subestatus,access_product_subestatus,model_product_subestatus,base.group_user,1,1,1,1
+access_product_estatus_user,access_product_estatus_user,model_product_estatus,base.group_user,1,0,0,0
+access_product_estatus_write,access_product_estatus_write,model_product_estatus,WB_data_product.group_status_product_write,1,1,1,1
+access_product_subestatus_user,access_product_subestatus_user,model_product_subestatus,base.group_user,1,0,0,0
+access_product_subestatus_write,access_product_subestatus_write,model_product_subestatus,WB_data_product.group_status_product_write,1,1,1,1
 access_internal_category,access_internal_category,model_internal_category,base.group_user,1,1,1,1
 access_product_brand,access_product_brand,model_product_brand,base.group_user,1,1,1,1
 access_product_responsible,access_product_responsible,model_product_responsible,base.group_user,1,1,1,1

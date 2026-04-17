@@ -5,6 +5,11 @@
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 
+    <record id="group_status_product_write" model="res.groups">
+        <field name="name">Escritura de estatus y subestatus</field>
+        <field name="implied_ids" eval="[(4, ref('WB_data_product.group_status_product_readonly'))]"/>
+    </record>
+
     <record id="group_product_responsible_view" model="res.groups">
         <field name="name">Ver Pestaña de Responsables de Producto</field>
         <field name="category_id" ref="base.module_category_inventory_inventory"/>
