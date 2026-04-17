@@ -68,5 +68,6 @@
         'views/product_template_view.xml',
         'views/skus_control.xml',
         'views/estatus_subestatus_view.xml',
+        'views/product_views_coffee.xml',
     ],
 }

@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+    <record  id="product_product_form_inherit" model="ir.ui.view">
+
+      <field name="name">product_product_coffee_view</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="arch" type="xml">
+          <xpath expr="//notebook" position="inside">
+            <page name="control_sku" string="Control SKUs">
+                <field name="security_stock" string="Stock de seguridad" />
+                <field name="visualization_stock" string="Stock de visualización de canal" />
+                <field name="pvp_aim" string="PVP objetivo" />
+                <field name="purchase_frequency" string="Frecuencia de compra" />
+                <field name="pc1" string="PC1" />
+                <field name="pc2" string="PC2" />
+                <field name="cluster" string="Cluster" />
+                <field name="loading_qty_" string="Cantidad de carga" />
+                <field name="data_inventory_date" string="Fecha de inventario" />
+                <field name="data_supplier_code" string="Código de proveedor" />
+            </page>
+            <page name="additional_info" string="Información Adicional">
+                <field name="target_items" string="Venta objetivo" />
+                <field name="purchase_active" string="Compra activa" />
+                <field name="variant" string="Variante" />
+            </page>
+          </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>
