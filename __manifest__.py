@@ -70,6 +70,4 @@
         'views/estatus_subestatus_view.xml',
         'views/product_views_coffee.xml',
     ],
-    
-    'post_init_hook': '_recompute_product_structure',
 }
