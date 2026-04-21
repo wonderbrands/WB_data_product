@@ -115,7 +115,12 @@
                       <field name="status_subsequence"/>
                       <field name="txt_binary" filename="txt_filename" readonly="1"/>-->
                   </group>
+                  <group string="Importación">
+                    <field name="data_official_mexican_standards"/>
+                    <field name="data_moq"/>
+                  </group>
               </group>
+ 
             </page>
           </notebook>
 
@@ -217,6 +222,48 @@
               parent="stock.menu_stock_config_settings"
               action="action_product_brand"
               sequence="101"/>
+
+    <record model="ir.ui.view" id="noms_list_view">
+            <field name="name">NOMS list</field>
+            <field name="model">import.noms</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="code"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="noms_form_view">
+            <field name="name">NOMS Form</field>
+            <field name="model">import.noms</field>
+            <field name="arch" type="xml">
+                <form>
+                        <group>
+                            <field name="code" required="1"/>
+                            <field name="name" required="1"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="noms_action">
+            <field name="name">NOMS</field>
+            <field name="res_model">import.noms</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="noms_list_view"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Crea un nuevo registro de NOM
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_import_noms"
+                  name="NOMS"
+                  parent="stock.menu_stock_config_settings"
+                  action="noms_action"
+                  sequence="102"/>
 
   </data>
 </odoo>

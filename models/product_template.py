@@ -75,6 +75,11 @@ class ProductTemplate(models.Model):
     #IMPORTACION
     tariff_percentage = fields.Float(string='Porcentaje de arancel', help="Porcentaje Impuesto del Arancel")
     
+    
+    # ------ CAMPOS solicitados por Armando 20 abril 2026 ----------
+    data_official_mexican_standards = fields.Many2one('import.noms',string='NOMS', help="Normas Oficiales Mexicanas")
+    data_moq = fields.Integer(string='MOQ')
+    # --------------------------------------------------------------
     # Function that prints the previous cost
     @api.depends('seller_ids')
     def _previous_cost(self):
@@ -375,3 +380,11 @@ class ProductTemplate(models.Model):
                 rec.product_volume = round( (rec.product_width * rec.product_height * rec.product_length) / 5000,2)
             else:
                 rec.product_volume = 0.00
+                
+                
+class ImportNOMS(models.Model):
+    _name = 'import.noms'
+    _description = 'Catalogo de Normas Mexicanas para importacion'
+
+    code = fields.Char(string='Codigo')
+    name = fields.Char(string='Nombre')
