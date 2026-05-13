@@ -102,10 +102,10 @@
           <!-- Agrega una nueva página al formulario llamada Logística -->
             <page name="more_info" string="Más información">
               <group>
-                  <group string="Logística">
+                  <group string="Logística" name="logistica">
                       <field name="nacional_import"/>
                   </group>
-                  <group string="Planificación">
+                  <group string="Planificación" name="planificacion">
                       <field name="tariff_percentage"/>
                   </group>
                   <group string="Estatus y Etiquetas" name="status">
@@ -115,7 +115,7 @@
                       <field name="status_subsequence"/>
                       <field name="txt_binary" filename="txt_filename" readonly="1"/>-->
                   </group>
-                  <group string="Importación">
+                  <group string="Importación" name="importacion">
                     <field name="data_official_mexican_standards"/>
                     <field name="data_moq"/>
                   </group>
@@ -125,6 +125,33 @@
           </notebook>
 
       </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <record id="product_normal_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.normal.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//group[@name='logistica']" position="inside">
+                <field name="purchase_active" string="Compra activa"/>
+            </xpath>
+
+            <xpath expr="//group[@name='planificacion']" position="inside">
+                <field name="target_items" string="Venta objetivo"/>
+                <field name="data_supplier_code" string="Código de proveedor"/>
+            </xpath>
+
+            <xpath expr="//group[@name='status']" position="inside">
+                <field name="variant" string="Variante"/>
+            </xpath>
+
+            <xpath expr="//group[@name='importacion']" position="inside">
+                <field name="loading_qty_" string="Cantidad de carga"/>
+            </xpath>
+
+        </field>
     </record>
 
     <!-- ============================================================ -->
