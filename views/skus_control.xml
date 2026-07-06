@@ -1,19 +1,19 @@
 <odoo>
   <data>
-    <record id="product_template_form_inherit_2" model="ir.ui.view">
-      <field name="name">product.product.form.inherit.2</field>
-      <field name="model">product.template</field>
-      <field name="inherit_id" ref="product.product_template_form_view"/>
-      <field name="arch" type="xml">
-        <xpath expr="//notebook" position="inside">
-          <page string="Control SKUs">
-            <group>
-              <!-- Espacio para campos de control a futuro.
-              Carlos Rizo menciona que pestania se queda pero campos de Malena no -->
-            </group>
-          </page>
-        </xpath>
-      </field>
-    </record>
+<!--    <record id="product_template_form_inherit_2" model="ir.ui.view">-->
+<!--      <field name="name">product.product.form.inherit.2</field>-->
+<!--      <field name="model">product.template</field>-->
+<!--      <field name="inherit_id" ref="product.product_template_form_view"/>-->
+<!--      <field name="arch" type="xml">-->
+<!--        <xpath expr="//notebook" position="inside">-->
+<!--          <page string="Control SKUs">-->
+<!--            <group>-->
+<!--              &lt;!&ndash; Espacio para campos de control a futuro.-->
+<!--              Carlos Rizo menciona que pestania se queda pero campos de Malena no &ndash;&gt;-->
+<!--            </group>-->
+<!--          </page>-->
+<!--        </xpath>-->
+<!--      </field>-->
+<!--    </record>-->
   </data>
 </odoo>

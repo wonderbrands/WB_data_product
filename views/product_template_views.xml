@@ -1,256 +1,227 @@
 <odoo>
-  <data>
-    <record  id="product_template_form_inherit" model="ir.ui.view">
+    <data>
+        <record id="product_template_form_inherit" model="ir.ui.view">
 
-      <field name="name">product_template_inherit</field>
-      <field name="model">product.template</field>
-      <field name="inherit_id" ref="product.product_template_form_view"/>
-      <field name="arch" type="xml">
-          <!-- Botón de impresión de etiquetas -->
-          <xpath expr="//header" position="inside">
-               <!--
-              <button string="Imprimir ZPL" type="object" name="print_zpl" />
-              -->
-          </xpath>
-          <!-- Agrega campos a la página Inventario -->
-          <xpath expr="//group[@name='group_lots_and_weight']" position="after">
-              <!-- MEDIDAS DE PRODUCTO -->
-              <group string="Medidas de Producto">
-                  <label for="product_length"/>
-                  <div class="o_row" name="product_length">
-                    <field name="product_length"/>
-                    <span>cm</span>
-                  </div>
-                  <label for="product_height"/>
-                  <div class="o_row" name="product_height">
-                    <field name="product_height"/>
-                    <span>cm</span>
-                  </div>
-                  <label for="product_width"/>
-                  <div class="o_row" name="product_width">
-                    <field name="product_width"/>
-                    <span>cm</span>
-                  </div>
-                  <label for="product_weight"/>
-                  <div class="o_row" name="product_weight">
-                    <field name="product_weight"/>
-                    <span>kg</span>
-                  </div>
-                  <label for="product_volume"/>
-                  <div class="o_row" name="product_volume">
-                    <field name="product_volume"/>
-                  </div>
-                  <field name="packages_number"/>
-              </group>
-          </xpath>
-          <xpath expr="//group[@name='group_lots_and_weight']" position="after">
-              <!-- MEDIDAS DE EMPAQUE -->
-              <group string="Medidas de Empaque">
-                  <label for="packing_length"/>
-                  <div class="o_row" name="packing_length">
-                    <field name="packing_length"/>
-                    <span>cm</span>
-                  </div>
-                  <label for="packing_height"/>
-                  <div class="o_row" name="packing_height">
-                    <field name="packing_height"/>
-                    <span>cm</span>
-                  </div>
-                  <label for="packing_width"/>
-                  <div class="o_row" name="packing_width">
-                    <field name="packing_width"/>
-                    <span>cm</span>
-                  </div>
-                  <label for="packing_weight"/>
-                  <div class="o_row" name="packing_weight">
-                    <field name="packing_weight"/>
-                    <span>kg</span>
-                  </div>
+            <field name="name">product_template_inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Botón de impresión de etiquetas -->
+                <xpath expr="//header" position="inside">
+                    <!--
+                   <button string="Imprimir ZPL" type="object" name="print_zpl" />
+                   -->
+                </xpath>
+                <!-- Agrega campos a la página Inventario -->
+                <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                    <!-- MEDIDAS DE PRODUCTO -->
+                    <group string="Medidas de Producto">
+                        <label for="product_length"/>
+                        <div class="o_row" name="product_length">
+                            <field name="product_length"/>
+                            <span>cm</span>
+                        </div>
+                        <label for="product_height"/>
+                        <div class="o_row" name="product_height">
+                            <field name="product_height"/>
+                            <span>cm</span>
+                        </div>
+                        <label for="product_width"/>
+                        <div class="o_row" name="product_width">
+                            <field name="product_width"/>
+                            <span>cm</span>
+                        </div>
+                        <label for="product_weight"/>
+                        <div class="o_row" name="product_weight">
+                            <field name="product_weight"/>
+                            <span>kg</span>
+                        </div>
+                        <label for="product_volume"/>
+                        <div class="o_row" name="product_volume">
+                            <field name="product_volume"/>
+                        </div>
+                        <field name="packages_number"/>
+                    </group>
+                </xpath>
+                <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                    <!-- MEDIDAS DE EMPAQUE -->
+                    <group string="Medidas de Empaque">
+                        <label for="packing_length"/>
+                        <div class="o_row" name="packing_length">
+                            <field name="packing_length"/>
+                            <span>cm</span>
+                        </div>
+                        <label for="packing_height"/>
+                        <div class="o_row" name="packing_height">
+                            <field name="packing_height"/>
+                            <span>cm</span>
+                        </div>
+                        <label for="packing_width"/>
+                        <div class="o_row" name="packing_width">
+                            <field name="packing_width"/>
+                            <span>cm</span>
+                        </div>
+                        <label for="packing_weight"/>
+                        <div class="o_row" name="packing_weight">
+                            <field name="packing_weight"/>
+                            <span>kg</span>
+                        </div>
 
-                  <label for="data_averages_updated_date"/>
-                  <div class="o_row" name="data_averages_updated_date">
-                    <field name="data_averages_updated_date"/>
-                  </div>
-                  <label for="data_averages_updated_by"/>
-                  <div class="o_row" name="data_averages_updated_by">
-                    <field name="data_averages_updated_by"/>
-                  </div>
+                        <label for="data_averages_updated_date"/>
+                        <div class="o_row" name="data_averages_updated_date">
+                            <field name="data_averages_updated_date"/>
+                        </div>
+                        <label for="data_averages_updated_by"/>
+                        <div class="o_row" name="data_averages_updated_by">
+                            <field name="data_averages_updated_by"/>
+                        </div>
 
-              </group>
-          </xpath>
-          <!-- Agrega campos a la pagina Información General -->
-          <xpath expr="//group[@name='group_standard_price']" position="after">
-              <group string="Comercial" name="comercial">
-                  <field name="buyer" 
-                        options="{'no_create': True}" 
-                        domain="[('type', 'in', ['buyer', 'both'])]"/>
-                        
-                  <field name="owner" 
-                        options="{'no_create': True}" 
-                        domain="[('type', 'in', ['owner', 'both'])]"/>
-                        
-                  <field name="internal_category"/>
-                  <field name="brand"/>
-              </group>
+                    </group>
+                </xpath>
+                <!-- Agrega campos a la pagina Información General -->
+                <xpath expr="//group[@name='group_standard_price']" position="after">
+                    <group string="Comercial" name="comercial">
+                        <field name="buyer"
+                               options="{'no_create': True}"
+                               domain="[('type', 'in', ['buyer', 'both'])]"/>
 
-              <group string="Costos" invisible="context.get('product.product', True)">
-                  <field name="previous_cost" widget='monetary'/>
+                        <field name="owner"
+                               options="{'no_create': True}"
+                               domain="[('type', 'in', ['owner', 'both'])]"/>
 
-              </group>
-          </xpath>
-          <notebook>
-          <!-- Agrega una nueva página al formulario llamada Logística -->
-            <page name="more_info" string="Más información">
-              <group>
-                  <group string="Logística" name="logistica">
-                      <field name="nacional_import"/>
-                  </group>
-                  <group string="Planificación" name="planificacion">
-                      <field name="tariff_percentage"/>
-                  </group>
-                  <group string="Estatus y Etiquetas" name="status">
-                      <field name="status"/>
-                      <field name="substatus"/>
-                      <!--<field name="status_sequence"/>
-                      <field name="status_subsequence"/>
-                      <field name="txt_binary" filename="txt_filename" readonly="1"/>-->
-                  </group>
-                  <group string="Importación" name="importacion">
-                    <field name="data_official_mexican_standards"/>
-                    <field name="data_moq"/>
-                  </group>
-              </group>
- 
-            </page>
-          </notebook>
+                        <field name="internal_category"/>
+                        <field name="brand"/>
+                    </group>
 
-      </field>
-    </record>
+                    <group string="Costos" invisible="context.get('product.product', True)">
+                        <field name="previous_cost" widget='monetary'/>
 
-    <!-- ============================================================ -->
-    <record id="product_normal_form_view_inherit" model="ir.ui.view">
-        <field name="name">product.product.normal.form.inherit</field>
-        <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
-        <field name="arch" type="xml">
-            
-            <xpath expr="//group[@name='logistica']" position="inside">
-                <field name="purchase_active" string="Compra activa"/>
-            </xpath>
+                    </group>
+                </xpath>
+                <notebook>
+                    <!-- Agrega una nueva página al formulario llamada Logística -->
+                    <page name="more_info" string="Más información">
+                        <group>
+                            <group string="Planificación" name="planing">
+                                <!--Venta objetivo-->
+                                <!--Compra activa-->
+                            </group>
+                            <group string="Importación">
+                                <field name="nacional_import"/>
+                                <!--codigo de proveedor-->
+                                <field name="data_moq"/>
+                                <!--Cantidad de carga-->
+                                <field name="data_official_mexican_standards"/>
+                                <field name="tariff_percentage"/>
+                            </group>
+                            <group string="Estatus y Etiquetas" name="status">
+                                <field name="status"/>
+                                <field name="substatus"/>
+                                <!--Variante-->
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
 
-            <xpath expr="//group[@name='planificacion']" position="inside">
-                <field name="target_items" string="Venta objetivo"/>
-                <field name="data_supplier_code" string="Código de proveedor"/>
-            </xpath>
+        <!-- ============================================================ -->
+        <!-- CATEGORÍA INTERNA: vistas, acción y menú                     -->
+        <!-- ============================================================ -->
+        <record id="view_internal_category_list" model="ir.ui.view">
+            <field name="name">internal.category.list</field>
+            <field name="model">internal.category</field>
+            <field name="arch" type="xml">
+                <list string="Categorías Internas" editable="bottom">
+                    <field name="name"/>
+                    <field name="description"/>
+                </list>
+            </field>
+        </record>
 
-            <xpath expr="//group[@name='status']" position="inside">
-                <field name="variant" string="Variante"/>
-            </xpath>
+        <record id="view_internal_category_form" model="ir.ui.view">
+            <field name="name">internal.category.form</field>
+            <field name="model">internal.category</field>
+            <field name="arch" type="xml">
+                <form string="Categoría Interna">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-            <xpath expr="//group[@name='importacion']" position="inside">
-                <field name="loading_qty_" string="Cantidad de carga"/>
-            </xpath>
+        <record id="action_internal_category" model="ir.actions.act_window">
+            <field name="name">Categorías internas</field>
+            <field name="res_model">internal.category</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea una nueva Categoría interna
+                </p>
+            </field>
+        </record>
 
-        </field>
-    </record>
+        <menuitem id="menu_internal_category"
+                  name="Categorías Internas"
+                  parent="stock.menu_stock_config_settings"
+                  action="action_internal_category"
+                  sequence="100"/>
 
-    <!-- ============================================================ -->
-    <!-- CATEGORÍA INTERNA: vistas, acción y menú                     -->
-    <!-- ============================================================ -->
-    <record id="view_internal_category_list" model="ir.ui.view">
-      <field name="name">internal.category.list</field>
-      <field name="model">internal.category</field>
-      <field name="arch" type="xml">
-        <list string="Categorías Internas" editable="bottom">
-          <field name="name"/>
-          <field name="description"/>
-        </list>
-      </field>
-    </record>
+        <!-- ============================================================ -->
+        <!-- MARCA (product.brand): vistas, acción y menú                 -->
+        <!-- ============================================================ -->
+        <record id="view_product_brand_list" model="ir.ui.view">
+            <field name="name">product.brand.list</field>
+            <field name="model">product.brand</field>
+            <field name="arch" type="xml">
+                <list string="Marcas" editable="bottom">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="supplier"/>
+                </list>
+            </field>
+        </record>
 
-    <record id="view_internal_category_form" model="ir.ui.view">
-      <field name="name">internal.category.form</field>
-      <field name="model">internal.category</field>
-      <field name="arch" type="xml">
-        <form string="Categoría Interna">
-          <sheet>
-            <group>
-              <field name="name"/>
-              <field name="description"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+        <record id="view_product_brand_form" model="ir.ui.view">
+            <field name="name">product.brand.form</field>
+            <field name="model">product.brand</field>
+            <field name="arch" type="xml">
+                <form string="Marca">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="supplier"
+                                   options="{'no_create': True}"
+                                   domain="[('supplier_rank', '&gt;', 0)]"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <record id="action_internal_category" model="ir.actions.act_window">
-      <field name="name">Categorías internas</field>
-      <field name="res_model">internal.category</field>
-      <field name="view_mode">list,form</field>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-          Crea una nueva Categoría interna
-        </p>
-      </field>
-    </record>
+        <record id="action_product_brand" model="ir.actions.act_window">
+            <field name="name">Marcas</field>
+            <field name="res_model">product.brand</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea una nueva Marca
+                </p>
+            </field>
+        </record>
 
-    <menuitem id="menu_internal_category"
-              name="Categorías Internas"
-              parent="stock.menu_stock_config_settings"
-              action="action_internal_category"
-              sequence="100"/>
+        <menuitem id="menu_product_brand"
+                  name="Marcas"
+                  parent="stock.menu_stock_config_settings"
+                  action="action_product_brand"
+                  sequence="101"/>
 
-    <!-- ============================================================ -->
-    <!-- MARCA (product.brand): vistas, acción y menú                 -->
-    <!-- ============================================================ -->
-    <record id="view_product_brand_list" model="ir.ui.view">
-      <field name="name">product.brand.list</field>
-      <field name="model">product.brand</field>
-      <field name="arch" type="xml">
-        <list string="Marcas" editable="bottom">
-          <field name="name"/>
-          <field name="description"/>
-          <field name="supplier"/>
-        </list>
-      </field>
-    </record>
-
-    <record id="view_product_brand_form" model="ir.ui.view">
-      <field name="name">product.brand.form</field>
-      <field name="model">product.brand</field>
-      <field name="arch" type="xml">
-        <form string="Marca">
-          <sheet>
-            <group>
-              <field name="name"/>
-              <field name="description"/>
-              <field name="supplier"
-                     options="{'no_create': True}"
-                     domain="[('supplier_rank', '&gt;', 0)]"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
-
-    <record id="action_product_brand" model="ir.actions.act_window">
-      <field name="name">Marcas</field>
-      <field name="res_model">product.brand</field>
-      <field name="view_mode">list,form</field>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-          Crea una nueva Marca
-        </p>
-      </field>
-    </record>
-
-    <menuitem id="menu_product_brand"
-              name="Marcas"
-              parent="stock.menu_stock_config_settings"
-              action="action_product_brand"
-              sequence="101"/>
-
-    <record model="ir.ui.view" id="noms_list_view">
+        <record model="ir.ui.view" id="noms_list_view">
             <field name="name">NOMS list</field>
             <field name="model">import.noms</field>
             <field name="arch" type="xml">
@@ -266,10 +237,10 @@
             <field name="model">import.noms</field>
             <field name="arch" type="xml">
                 <form>
-                        <group>
-                            <field name="code" required="1"/>
-                            <field name="name" required="1"/>
-                        </group>
+                    <group>
+                        <field name="code" required="1"/>
+                        <field name="name" required="1"/>
+                    </group>
                 </form>
             </field>
         </record>
@@ -280,9 +251,9 @@
             <field name="view_mode">list,form</field>
             <field name="view_id" ref="noms_list_view"/>
             <field name="help" type="html">
-              <p class="o_view_nocontent_smiling_face">
-                Crea un nuevo registro de NOM
-              </p>
+                <p class="o_view_nocontent_smiling_face">
+                    Crea un nuevo registro de NOM
+                </p>
             </field>
         </record>
 
@@ -292,5 +263,5 @@
                   action="noms_action"
                   sequence="102"/>
 
-  </data>
+    </data>
 </odoo>

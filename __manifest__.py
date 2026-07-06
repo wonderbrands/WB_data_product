@@ -33,7 +33,7 @@
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Inventory',
-    'version': '18.2',
+    'version': '18.1',
 
     # any module necessary for this one to work correctly
     'depends': ['base',
@@ -68,6 +68,6 @@
         'views/product_template_view.xml',
         #'views/skus_control.xml',
         'views/estatus_subestatus_view.xml',
-        # 'views/product_views_coffee.xml', # Ocultar estas vistas a peticion Cecilia. Mayo 2026
+        'views/product_views_coffee.xml',
     ],
 }
