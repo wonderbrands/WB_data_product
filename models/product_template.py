@@ -37,6 +37,7 @@ class ProductTemplate(models.Model):
     buyer = fields.Many2one('product.responsible', string='Comprador responsable', help='Establece el comprador encargado de este SKU', domain="[('type', 'in', ['buyer', 'both'])]")
     owner = fields.Many2one('product.responsible', string='Owner comercial', help='Establece el comercial responsable de este SKU', domain="[('type', 'in', ['owner', 'both'])]")
     internal_category = fields.Many2one('internal.category', string='Categoría interna', help='Categoría interna para el equipo de SR')
+    sub_category_id = fields.Many2one('internal.subcategory', string='Sub categoría', help='Sub categoría interna del producto')
     brand = fields.Many2one('product.brand', string='Marca', help='Marca a la que pertecene el SKU')
     #Logistics
     nacional_import = fields.Selection([('importado', 'Importado'),

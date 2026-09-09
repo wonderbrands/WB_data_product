@@ -7,6 +7,7 @@ access_product_estatus_write,access_product_estatus_write,model_product_estatus,
 access_product_subestatus_user,access_product_subestatus_user,model_product_subestatus,base.group_user,1,0,0,0
 access_product_subestatus_write,access_product_subestatus_write,model_product_subestatus,WB_data_product.group_status_product_write,1,1,1,1
 access_internal_category,access_internal_category,model_internal_category,base.group_user,1,1,1,1
+access_internal_subcategory,access_internal_subcategory,model_internal_subcategory,base.group_user,1,1,1,1
 access_product_brand,access_product_brand,model_product_brand,base.group_user,1,1,1,1
 access_product_responsible,access_product_responsible,model_product_responsible,base.group_user,1,1,1,1
 access_import_noms_user,import.noms.user.access,model_import_noms,base.group_user,1,1,1,1

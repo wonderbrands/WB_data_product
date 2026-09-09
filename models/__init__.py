@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from . import logistics
 from . import product_template
 from . import product_supplierinfo
-from . import logistics
 from . import estatus
 from . import product
 from . import mrp_bom_line

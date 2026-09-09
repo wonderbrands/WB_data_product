@@ -37,6 +37,14 @@ class InternalCategory(models.Model):
     name = fields.Char(string='Nombre')
     description = fields.Char(string='Descripción')
 
+class InternalSubcategory(models.Model):
+    _name = "internal.subcategory"
+    _description = "Modelo para subcategorías internas de productos"
+
+    name = fields.Char(string='Nombre', required=True)
+    description = fields.Char(string='Descripción')
+    category_id = fields.Many2one('internal.category', string='Categoría Interna')
+
 class ProductBrand(models.Model):
     _name = "product.brand"
     _description = "Modelo para creación de marcas de producto"
