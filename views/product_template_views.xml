@@ -92,6 +92,8 @@
                         <field name="internal_category"/>
                         <field name="sub_category_id"/>
                         <field name="brand"/>
+                        <field name="status"/>
+                        <field name="substatus"/>
                     </group>
 
                     <group string="Costos" invisible="context.get('product.product', True)">

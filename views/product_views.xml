@@ -5,11 +5,7 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//group[@name='group_standard_price']" position="after">
-                    <group string="Comercial" name="comercial">
-                        <field name="internal_category"/>
-                        <field name="sub_category_id"/>
-                    </group>
+                <xpath expr="//group[@name='comercial']" position="after">
                     <group string="Costos">
                         <field name="revised_cost" widget='monetary'/>
                     </group>
@@ -28,19 +24,11 @@
                         </div>
                     </group>
                 </xpath>
+                <xpath expr="//group[@name='comercial']" position="inside">
+                    <field name="stock_real"/>
+                    <field name="stock_urrea"/>
+                </xpath>
                 <notebook>
-                    <page name="status_info" string="Estatus y Etiquetas">
-                        <group>
-                            <group string="Estatus y Etiquetas" name="status">
-                                <field name="status"/>
-                                <field name="substatus"/>
-                            </group>
-                            <group string="Stock">
-                                <field name="stock_real"/>
-                                <field name="stock_urrea"/>
-                            </group>
-                        </group>
-                    </page>
                     <page name="combo" string="Componentes" invisible="[('is_kit', '=', False)]">
                         <group string='Lista de materiales'>
                             <group>
