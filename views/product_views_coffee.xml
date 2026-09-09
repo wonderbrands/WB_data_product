@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="product_product_form_inherit" model="ir.ui.view">
+        <record id="product_product_coffee_view_inherit" model="ir.ui.view">
             <field name="name">product_product_coffee_view</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
