@@ -35,10 +35,10 @@ class ProductProduct(models.Model):
     calculated_volume = fields.Float(string='Volumen calculado', help='Muestra el cálculo del volumen de los componentes del combo, transforma centimetros cúbicos a Litros')
 
     # Status and Classification related fields
-    status = fields.Many2one(related='product_tmpl_id.status', string='Estatus', readonly=False, store=True)
-    substatus = fields.Many2one(related='product_tmpl_id.substatus', string='Subestatus', readonly=False, store=True)
-    internal_category = fields.Many2one(related='product_tmpl_id.internal_category', string='Categoría interna', readonly=False, store=True)
-    sub_category_id = fields.Many2one(related='product_tmpl_id.sub_category_id', string='Sub categoría', readonly=False, store=True)
+    status = fields.Many2one(related='product_tmpl_id.status', string='Estatus', readonly=False)
+    substatus = fields.Many2one(related='product_tmpl_id.substatus', string='Subestatus', readonly=False)
+    internal_category = fields.Many2one(related='product_tmpl_id.internal_category', string='Categoría interna', readonly=False)
+    sub_category_id = fields.Many2one(related='product_tmpl_id.sub_category_id', string='Sub categoría', readonly=False)
 
     # Function that prints the previous cost
     @api.depends('seller_ids')
