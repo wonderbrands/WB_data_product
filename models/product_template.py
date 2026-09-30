@@ -22,11 +22,11 @@ class ProductTemplate(models.Model):
     #Number of Packages
     packages_number = fields.Integer(string='Paquetes que componen el SKU', help="Indica en cuántas cajas/paquetes se envía este SKU debido a su tamaño (valor entero).")
     #Product Measurements
-    product_length = fields.Float(string='Largo producto', help="Largo del Producto en centimentros")
-    product_height = fields.Float(string='Alto producto', help="Alto del Producto en centimentros")
-    product_width = fields.Float(string='Ancho producto', help="Ancho del Producto en centimentros")
-    product_weight = fields.Float(string='Peso producto', help="Peso del Producto en kilogramos")
-    product_volume = fields.Float(string='Volumen producto', help="Volumen del Producto", compute='_volumen')
+    product_length = fields.Float(string='Largo producto', help="Largo del Producto en centimentros", tracking=True)
+    product_height = fields.Float(string='Alto producto', help="Alto del Producto en centimentros", tracking=True)
+    product_width = fields.Float(string='Ancho producto', help="Ancho del Producto en centimentros", tracking=True)
+    product_weight = fields.Float(string='Peso producto', help="Peso del Producto en kilogramos", tracking=True)
+    product_volume = fields.Float(string='Volumen producto', help="Volumen del Producto", compute='_volumen', store=True, tracking=True)
     #Packaging Measurements
     packing_length = fields.Float(string='Largo empaque', help="Largo del Empaque en centimentros", tracking=True)
     packing_height = fields.Float(string='Alto empaque', help="Alto del Empaque en centimentros", tracking=True)
@@ -384,32 +384,37 @@ class ProductTemplate(models.Model):
 
     def write(self, vals):
         from markupsafe import Markup
-        packing_fields = {
+        tracking_measure_fields = {
             'packing_length': 'Largo empaque',
             'packing_height': 'Alto empaque',
             'packing_width': 'Ancho empaque',
             'packing_weight': 'Peso empaque',
+            'product_length': 'Largo producto',
+            'product_height': 'Alto producto',
+            'product_width': 'Ancho producto',
+            'product_weight': 'Peso producto',
+            'product_volume': 'Volumen producto',
         }
         is_import = self.env.context.get('import_file') or self.env.context.get('tracking_disable')
         
         old_vals = {}
-        if is_import and any(f in vals for f in packing_fields):
+        if is_import and any(f in vals for f in tracking_measure_fields):
             for rec in self:
-                old_vals[rec.id] = {f: getattr(rec, f) for f in packing_fields if f in vals and hasattr(rec, f)}
+                old_vals[rec.id] = {f: getattr(rec, f) for f in tracking_measure_fields if f in vals and hasattr(rec, f)}
         
         res = super(ProductTemplate, self).write(vals)
         
         if is_import and old_vals:
             for rec in self:
                 changes = []
-                for field, label in packing_fields.items():
+                for field, label in tracking_measure_fields.items():
                     if field in vals:
                         old_v = old_vals.get(rec.id, {}).get(field)
                         new_v = getattr(rec, field, None)
                         if old_v != new_v:
                             changes.append(f"<li><b>{label}</b>: {old_v} &rarr; {new_v}</li>")
                 if changes:
-                    msg = Markup(f"<p><b>Medidas de empaque actualizadas vía Importación por {self.env.user.name}:</b></p><ul>" + "".join(changes) + "</ul>")
+                    msg = Markup(f"<p><b>Medidas de producto/empaque actualizadas vía Importación por {self.env.user.name}:</b></p><ul>" + "".join(changes) + "</ul>")
                     if hasattr(rec, 'message_post'):
                         rec.message_post(body=msg)
         return res
