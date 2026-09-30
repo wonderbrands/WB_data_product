@@ -35,7 +35,7 @@ class ProductProduct(models.Model):
     calculated_volume = fields.Float(string='Volumen calculado', help='Muestra el cálculo del volumen de los componentes del combo, transforma centimetros cúbicos a Litros')
 
     # Status and Classification related fields
-    status = fields.Many2one(related='product_tmpl_id.status', string='Estatus', readonly=False)
+    status = fields.Many2one('product.estatus', string='Estatus', help='Estatus específico del SKU/Variante', tracking=True)
     substatus = fields.Many2one('product.subestatus', string='Subestatus', help='Subestatus específico del SKU/Variante', tracking=True)
     internal_category = fields.Many2one(related='product_tmpl_id.internal_category', string='Categoría interna', readonly=False)
     sub_category_id = fields.Many2one(related='product_tmpl_id.sub_category_id', string='Sub categoría', readonly=False)
@@ -43,9 +43,11 @@ class ProductProduct(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if 'product_tmpl_id' in vals and 'substatus' not in vals:
+            if 'product_tmpl_id' in vals:
                 tmpl = self.env['product.template'].browse(vals['product_tmpl_id'])
-                if tmpl.substatus:
+                if tmpl.status and 'status' not in vals:
+                    vals['status'] = tmpl.status.id
+                if tmpl.substatus and 'substatus' not in vals:
                     vals['substatus'] = tmpl.substatus.id
         return super().create(vals_list)
 
