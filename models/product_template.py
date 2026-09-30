@@ -28,10 +28,10 @@ class ProductTemplate(models.Model):
     product_weight = fields.Float(string='Peso producto', help="Peso del Producto en kilogramos")
     product_volume = fields.Float(string='Volumen producto', help="Volumen del Producto", compute='_volumen')
     #Packaging Measurements
-    packing_length = fields.Float(string='Largo empaque', help="Largo del Empaque en centimentros")
-    packing_height = fields.Float(string='Alto empaque', help="Alto del Empaque en centimentros")
-    packing_width = fields.Float(string='Ancho empaque', help="Ancho del Empaque en centimentros")
-    packing_weight = fields.Float(string='Peso empaque', help="Peso del Empaque en centimentros")
+    packing_length = fields.Float(string='Largo empaque', help="Largo del Empaque en centimentros", tracking=True)
+    packing_height = fields.Float(string='Alto empaque', help="Alto del Empaque en centimentros", tracking=True)
+    packing_width = fields.Float(string='Ancho empaque', help="Ancho del Empaque en centimentros", tracking=True)
+    packing_weight = fields.Float(string='Peso empaque', help="Peso del Empaque en centimentros", tracking=True)
     #Comercial
     #buyer = fields.One2many('usr.comprador', inverse_name='partner_id', string='Comprador responsable', help="Comprador responsable del SKU")
     buyer = fields.Many2one('product.responsible', string='Comprador responsable', help='Establece el comprador encargado de este SKU', domain="[('type', 'in', ['buyer', 'both'])]")
@@ -381,6 +381,38 @@ class ProductTemplate(models.Model):
                 rec.product_volume = round( (rec.product_width * rec.product_height * rec.product_length) / 5000,2)
             else:
                 rec.product_volume = 0.00
+
+    def write(self, vals):
+        from markupsafe import Markup
+        packing_fields = {
+            'packing_length': 'Largo empaque',
+            'packing_height': 'Alto empaque',
+            'packing_width': 'Ancho empaque',
+            'packing_weight': 'Peso empaque',
+        }
+        is_import = self.env.context.get('import_file') or self.env.context.get('tracking_disable')
+        
+        old_vals = {}
+        if is_import and any(f in vals for f in packing_fields):
+            for rec in self:
+                old_vals[rec.id] = {f: getattr(rec, f) for f in packing_fields if f in vals and hasattr(rec, f)}
+        
+        res = super(ProductTemplate, self).write(vals)
+        
+        if is_import and old_vals:
+            for rec in self:
+                changes = []
+                for field, label in packing_fields.items():
+                    if field in vals:
+                        old_v = old_vals.get(rec.id, {}).get(field)
+                        new_v = getattr(rec, field, None)
+                        if old_v != new_v:
+                            changes.append(f"<li><b>{label}</b>: {old_v} &rarr; {new_v}</li>")
+                if changes:
+                    msg = Markup(f"<p><b>Medidas de empaque actualizadas vía Importación por {self.env.user.name}:</b></p><ul>" + "".join(changes) + "</ul>")
+                    if hasattr(rec, 'message_post'):
+                        rec.message_post(body=msg)
+        return res
                 
                 
 class ImportNOMS(models.Model):

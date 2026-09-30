@@ -36,9 +36,18 @@ class ProductProduct(models.Model):
 
     # Status and Classification related fields
     status = fields.Many2one(related='product_tmpl_id.status', string='Estatus', readonly=False)
-    substatus = fields.Many2one(related='product_tmpl_id.substatus', string='Subestatus', readonly=False)
+    substatus = fields.Many2one('product.subestatus', string='Subestatus', help='Subestatus específico del SKU/Variante', tracking=True)
     internal_category = fields.Many2one(related='product_tmpl_id.internal_category', string='Categoría interna', readonly=False)
     sub_category_id = fields.Many2one(related='product_tmpl_id.sub_category_id', string='Sub categoría', readonly=False)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'product_tmpl_id' in vals and 'substatus' not in vals:
+                tmpl = self.env['product.template'].browse(vals['product_tmpl_id'])
+                if tmpl.substatus:
+                    vals['substatus'] = tmpl.substatus.id
+        return super().create(vals_list)
 
     # Function that prints the previous cost
     @api.depends('seller_ids')
